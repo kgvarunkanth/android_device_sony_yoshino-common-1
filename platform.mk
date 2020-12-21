@@ -33,6 +33,16 @@ PRODUCT_PACKAGES += \
 # Enable dynamic partition size
 PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
 
+# USB debugging at boot
+# Do not enable if build type is user
+ifneq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0 \
+    ro.secure=0 \
+    ro.debuggable=1
+endif
+
 DEVICE_PACKAGE_OVERLAYS += \
     $(PLATFORM_PATH)/overlay
 
